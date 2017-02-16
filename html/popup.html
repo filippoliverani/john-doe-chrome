@@ -1,0 +1,40 @@
+﻿<html>
+  <head>
+    <title>John Doe Chrome</title>
+    <link rel="stylesheet" type="text/css" href="../style/material.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/popup.css"/>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+      <main class="mdl-layout__content">
+      <div>
+        <h4>John Doe Chrome</h4>
+        <ul class="mdl-list settings">
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              Chrome privacy settings
+            </span>
+            <span class="mdl-list__item-secondary-action">
+              <button class="mdl-button mdl-js-button" id="privacy">
+                Apply
+              </button>
+            </span>
+          </li>
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              Enable
+            </span>
+            <span class="mdl-list__item-secondary-action">
+              <label class="mdl-switch mdl-js-switch" for="enabled">
+                <input type="checkbox" id="enabled" class="mdl-switch__input"/>
+              </label>
+            </span>
+          </li>
+        </ul>
+      </div>
+      </main>
+    </div>
+    <script src="../js/popup.js"></script>
+    <script src="../js/material.min.js"></script>
+  </body>
+</html>

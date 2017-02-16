@@ -1,0 +1,33 @@
+﻿{
+  "author": "Filippo Liverani",
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+  "browser_action": {
+    "default_icon": "images/small.png",
+    "default_popup": "html/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["js/content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "default_locale": "en",
+  "description": "Anonymize your browsing",
+  "homepage_url": "http://github.com/filippo-liverani/john-doe-chrome",
+  "icons": {
+    "128": "images/large.png",
+    "48": "images/medium.png",
+    "32": "images/small.png"
+  },
+  "manifest_version": 2,
+  "minimum_chrome_version": "26",
+  "name": "John Doe Chrome",
+  "permissions": [
+    "storage", "webRequest", "webRequestBlocking", "privacy", "http://*/*", "https://*/"
+  ],
+  "version": "1.0"
+}
