@@ -15,32 +15,34 @@ chrome.storage.sync.get('settings', function(storage) {
 var update = function() {
   resetScript();
 
-  appendNavigatorGetter('userAgent', userAgent);
-  appendNavigatorGetter('appName', '');
-  appendNavigatorGetter('appCodeName', '');
-  appendNavigatorGetter('appVersion', '');
-  appendNavigatorGetter('languages', []);
-  appendNavigatorGetter('platform', '');
-  appendNavigatorGetter('plugins', []);
-  appendNavigatorGetter('product', '');
-  appendNavigatorGetter('productSub', '');
-  appendNavigatorGetter('vendor', '');
-  appendGetter('window', 'name', '');
-  appendSetter('window', 'name');
+  updateNavigator('userAgent', userAgent);
+  updateNavigator('appName', '');
+  updateNavigator('appCodeName', '');
+  updateNavigator('appVersion', '');
+  updateNavigator('languages', []);
+  updateNavigator('mimeTypes', []);
+  updateNavigator('platform', 'Win32');
+  updateNavigator('plugins', []);
+  updateNavigator('product', '');
+  updateNavigator('productSub', '');
+  updateNavigator('vendor', '');
+  updateWindow();
+  updateCanvas();
 
   insertScript();
 };
 
-var appendNavigatorGetter = function(name, returnValue) {
+var updateNavigator = function(name, returnValue) {
   script += "window.navigator.__defineGetter__('" + name + "', function() {return '" + returnValue + "';});\n";
 };
 
-var appendGetter = function(name, returnValue) {
-  script += "window.__defineGetter__('" + name + "', function() {return '" + returnValue + "';});\n";
+var updateWindow= function() {
+  script += "window.__defineGetter__('name', function() {return '';});\n";
+  script += "window.__defineSetter__('name', function() {} );\n";
 };
 
-var appendSetter = function(name) {
-  script += "window.__defineSetter__('" + name + "', function() {} );\n";
+var updateCanvas = function() {
+  script += "HTMLCanvasElement.prototype.toDataURL = function() {return '';};\n";
 };
 
 var resetScript = function() {
