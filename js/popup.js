@@ -2,13 +2,13 @@
 
 var load = function() {
   chrome.storage.sync.get('settings', function(storage) {
-    settings = storage.settings;
+    settings = storage.settings || {};
 
     var enforcePrivacy = document.getElementById('privacy');
     enforcePrivacy.addEventListener('click', enforcePrivacy);
 
     var enable = document.getElementById('enable');
-    enabled.checked = settings.enabled || false;
+    enabled.checked = settings.enabled;
     enabled.addEventListener('click', setEnabled);
   });
 };
@@ -21,6 +21,7 @@ var enforcePrivacy = function() {
   chrome.privacy.services.hotwordSearchEnabled = false;
   chrome.privacy.services.passwordSavingEnabled = false;
   chrome.privacy.services.safeBrowsingEnabled = false;
+  chrome.privacy.services.safeBrowsingExtendedReportingEnabled = false;
   chrome.privacy.services.searchSuggestEnabled = false;
   chrome.privacy.services.spellingServiceEnabled = false;
   chrome.privacy.services.translationServiceEnabled = false;
