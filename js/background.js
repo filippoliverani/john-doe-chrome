@@ -8,36 +8,11 @@ var loadSettings = function() {
   });
 };
 
-var updateHeaders = function(details) {
+var beforeSendHeaders = function(details) {
   if (!settings || !settings.enabled) return;
 
-  var headers = [];
-  for (var header of details.requestHeaders) {
-    updateHeader(header, details.url);
-    headers.push(header);
-  }
-
+  var headers = updateHeaders(details.requestHeaders, details.url);
   return {requestHeaders: headers};
-};
-
-var updateHeader = function(header, url) {
-  switch (header.name) {
-    case 'Accept':
-      header.value = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
-      break;
-    case 'Accept-Encoding':
-      header.value = 'gzip, deflate';
-      break;
-    case 'Accept-Language':
-      header.value = 'en-US,en;q=0.5';
-      break;
-    case 'User-Agent':
-      header.value = userAgent;
-      break;
-    case 'Referer':
-      if (header.value && !url.includes(header.value)) header.value = url;
-      break;
-  }
 };
 
 chrome.storage.sync.set({'userAgent': userAgent});
@@ -49,7 +24,7 @@ chrome.extension.onMessage.addListener(function(request) {
 });
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
-  updateHeaders,
+  beforeSendHeaders,
   {urls: ['<all_urls>']},
   ['blocking', 'requestHeaders']
 );
