@@ -11,8 +11,15 @@ var loadSettings = function() {
 var beforeSendHeaders = function(details) {
   if (!settings || !settings.enabled) return;
 
-  var headers = updateHeaders(details.requestHeaders, details.url);
-  return {requestHeaders: headers};
+  var updatedHeaders = updateHeaders(details.requestHeaders, details.url);
+  return {requestHeaders: updatedHeaders};
+};
+
+var beforeRequest = function(details) {
+  if (!settings || !settings.enabled) return;
+
+  var updatedUrl = updateUrl(details.url);
+  return {redirectUrl: updatedUrl};
 };
 
 chrome.storage.sync.set({'userAgent': userAgent});
@@ -28,3 +35,10 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
   {urls: ['<all_urls>']},
   ['blocking', 'requestHeaders']
 );
+
+chrome.webRequest.onBeforeRequest.addListener(
+  beforeRequest,
+  {urls: ['<all_urls>']},
+  ['blocking']
+);
+
