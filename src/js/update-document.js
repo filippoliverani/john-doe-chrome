@@ -1,14 +1,27 @@
 ﻿var script = '';
 
-var secureDom = function(userAgent) {
+var updateDocument = function(doc, userAgent) {
+  var documentElement = (doc.head || doc.documentElement);
+  var scriptElement = doc.createElement('script');
+
+  scriptElement.textContent = createScript(userAgent);
+  documentElement.insertBefore(scriptElement, documentElement.firstChild);
+  scriptElement.parentNode.removeChild(scriptElement);
+};
+
+var createScript = function(userAgent) {
   resetScript();
 
-  updateNavigator(userAgent);
   updateWindow();
+  updateNavigator(userAgent);
   updateCanvas();
   updateStyleDeclaration();
 
   return script;
+};
+
+var resetScript = function() {
+  script = '';
 };
 
 var updateNavigator = function(userAgent) {
@@ -30,7 +43,7 @@ var updateNavigatorGetter = function(name, returnValue) {
 };
 
 var updateWindow = function() {
-  script += "window.__defineGetter__('name', function() {return '';});\n";
+  script += "window.__defineGetter__('name', function() {return 'peppino';});\n";
   script += "window.__defineSetter__('name', function() {});\n";
 };
 
@@ -42,6 +55,6 @@ var updateStyleDeclaration = function() {
   script += "CSSStyleDeclaration.prototype.__defineSetter__('fontFamily', function() {});\n";
 };
 
-var resetScript = function() {
-  script = '';
-};
+if (typeof module !== 'undefined') {
+  module.exports = updateDocument;
+}

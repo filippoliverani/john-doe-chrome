@@ -1,13 +1,13 @@
-﻿var updateHeaders = function(headers, url) {
+﻿var updateHeaders = function(headers, url, userAgent) {
   var updatedHeaders = []
   for (var header of headers) {
-    updateHeader(header, url);
+    updateHeaderValue(header, url, userAgent);
     updatedHeaders.push(header);
   }
   return updatedHeaders;
 };
 
-var updateHeader = function(header, url) {
+var updateHeaderValue = function(header, url, userAgent) {
   switch (header.name) {
     case 'Accept':
       header.value = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
@@ -26,3 +26,7 @@ var updateHeader = function(header, url) {
       break;
   }
 };
+
+if (typeof module !== 'undefined') {
+  module.exports = updateHeaders;
+}

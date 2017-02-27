@@ -11,3 +11,7 @@ var updateUrl = function(url) {
 
   return updatedUrl;
 };
+
+if (typeof module !== 'undefined') {
+  module.exports = updateUrl;
+}
