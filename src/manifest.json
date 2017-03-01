@@ -3,9 +3,9 @@
   "short_name": "Anonymize your browsing",
   "description": "A Chrome extension to anonymize some of the data exposed by your browser",
   "author": "Filippo Liverani",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "manifest_version": 2,
-  "minimum_chrome_version": "28",
+  "minimum_chrome_version": "38",
   "homepage_url": "http://github.com/filippo-liverani/john-doe-chrome",
   "icons": {
     "128": "images/large.png",
