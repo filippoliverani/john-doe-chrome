@@ -11,6 +11,7 @@
     "mocha": "^3.2.0"
   },
   "scripts": {
-    "test": "mocha --reporter spec test/**"
+    "test": "mocha --reporter spec test/**",
+    "package": "zip -r john-doe-chrome-$(node -e \"console.log(require('./package.json').version)\").zip src"
   }
 }
