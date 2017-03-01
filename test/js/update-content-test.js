@@ -1,9 +1,18 @@
 var expect = require('chai').expect;
 var jsdom = require('jsdom');
-var updateDocument = require('../../src/js/update-document.js');
+var updateDocument = require('../../src/js/update-content.js');
 
-describe('updateDocument', function () {
+describe('updateContent', function () {
   var userAgent = 'Correctzilla/1.0'
+
+  it('updates history attributes', function () {
+    var doc = jsdom.jsdom();
+
+    updateDocument(doc, userAgent);
+
+    var win = doc.defaultView
+    expect(win.history.length).to.equal(0);
+  });
 
   it('updates navigator attributes', function () {
     var doc = jsdom.jsdom();

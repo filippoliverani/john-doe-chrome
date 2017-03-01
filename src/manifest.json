@@ -29,7 +29,7 @@
       "matches": ["http://*/*", "https://*/*"],
       "js": [
         "js/content.js",
-        "js/update-document.js"
+        "js/update-content.js"
       ],
       "run_at": "document_start",
       "all_frames": true

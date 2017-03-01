@@ -8,5 +8,5 @@ chrome.storage.sync.get('settings', function(storage) {
   settings = storage.settings;
   if (!settings || !settings.enabled) return;
 
-  updateDocument(document, userAgent);
+  updateContent(document, userAgent);
 });
