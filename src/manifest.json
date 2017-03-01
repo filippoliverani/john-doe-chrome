@@ -36,6 +36,6 @@
     }
   ],
   "permissions": [
-    "storage", "webRequest", "webRequestBlocking", "privacy", "http://*/*", "https://*/"
+    "storage", "webRequest", "webRequestBlocking", "privacy", "browsingData", "http://*/*", "https://*/"
   ]
 }

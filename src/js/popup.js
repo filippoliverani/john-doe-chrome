@@ -4,13 +4,34 @@ var load = function() {
   chrome.storage.sync.get('settings', function(storage) {
     settings = storage.settings || {};
 
-    var enforcePrivacy = document.getElementById('privacy');
-    enforcePrivacy.addEventListener('click', enforcePrivacy);
-
     var enable = document.getElementById('enable');
     enabled.checked = settings.enabled;
     enabled.addEventListener('click', setEnabled);
+
+    var browsingData = document.getElementById('browsing-data');
+    browsingData.addEventListener('click', clearBrowsingData);
+
+    var privacy = document.getElementById('privacy');
+    privacy.addEventListener('click', enforcePrivacy);
   });
+};
+
+var clearBrowsingData = function() {
+  chrome.browsingData.remove(
+    {since: 0},
+    {
+      "appcache": true,
+      "cache": true,
+      "downloads": true,
+      "fileSystems": true,
+      "formData": true,
+      "history": true,
+      "indexedDB": true,
+      "localStorage": true,
+      "pluginData": true,
+      "webSQL": true
+    }
+  );
 };
 
 var enforcePrivacy = function() {
