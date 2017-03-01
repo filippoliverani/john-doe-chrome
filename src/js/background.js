@@ -17,9 +17,10 @@ var beforeSendHeaders = function(details) {
 
 var beforeRequest = function(details) {
   if (!settings || !settings.enabled) return;
+  var url = details.url;
 
-  var updatedUrl = updateUrl(details.url);
-  return {redirectUrl: updatedUrl};
+  var updatedUrl = updateUrl(url);
+  if (updatedUrl !== url) return {redirectUrl: updatedUrl};
 };
 
 chrome.storage.sync.set({'userAgent': userAgent});
