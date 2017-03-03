@@ -1,5 +1,5 @@
-var expect = require('chai').expect;
-var updateUrl = require('../../src/js/update-url.js');
+const expect = require('chai').expect;
+const updateUrl = require('../../src/js/update-url.js');
 
 describe('updateUrl', function () {
   it('leaves url unchanged when no query string parameters are present', function () {

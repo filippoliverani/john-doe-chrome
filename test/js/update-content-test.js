@@ -1,6 +1,6 @@
-var expect = require('chai').expect;
-var jsdom = require('jsdom');
-var updateDocument = require('../../src/js/update-content.js');
+const expect = require('chai').expect;
+const jsdom = require('jsdom');
+const updateDocument = require('../../src/js/update-content.js');
 
 describe('updateContent', function () {
   var userAgent = 'Correctzilla/1.0'
@@ -22,6 +22,8 @@ describe('updateContent', function () {
     var win = doc.defaultView
     expect(win.navigator.userAgent).to.equal(userAgent);
     expect(win.navigator.platform).to.equal('Win32');
+    expect(win.navigator.mimeTypes).to.deep.equal([]);
+    expect(win.navigator.languages).to.deep.equal([]);
   });
 
   it('updates canvas attributes', function () {

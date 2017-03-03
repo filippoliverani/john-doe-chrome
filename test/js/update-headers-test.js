@@ -1,5 +1,5 @@
-var expect = require('chai').expect;
-var updateHeaders = require('../../src/js/update-headers.js');
+const expect = require('chai').expect;
+const updateHeaders = require('../../src/js/update-headers.js');
 
 describe('updateHeaders', function () {
   it('replaces Accept header value', function () {

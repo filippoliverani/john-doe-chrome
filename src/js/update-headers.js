@@ -1,4 +1,4 @@
-﻿var updateHeaders = function(headers, url, userAgent) {
+﻿function updateHeaders(headers, url, userAgent) {
   var updatedHeaders = []
   for (var header of headers) {
     updateHeaderValue(header, url, userAgent);
@@ -7,7 +7,7 @@
   return updatedHeaders;
 };
 
-var updateHeaderValue = function(header, url, userAgent) {
+function updateHeaderValue(header, url, userAgent) {
   switch (header.name) {
     case 'Accept':
       header.value = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';

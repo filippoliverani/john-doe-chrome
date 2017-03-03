@@ -1,11 +1,11 @@
-﻿var script = '';
-var display = {
+﻿const display = {
   width: 1366,
   height: 768,
   depth: 24
 };
+var script = '';
 
-var updateContent = function(doc, userAgent) {
+function updateContent(doc, userAgent) {
   var documentElement = (doc.head || doc.documentElement);
   var scriptElement = doc.createElement('script');
 
@@ -14,7 +14,7 @@ var updateContent = function(doc, userAgent) {
   scriptElement.parentNode.removeChild(scriptElement);
 };
 
-var createScript = function(userAgent, url) {
+function createScript(userAgent, url) {
   resetScript();
 
   updateDocument(url);
@@ -29,19 +29,19 @@ var createScript = function(userAgent, url) {
   return script;
 };
 
-var resetScript = function() {
+function resetScript() {
   script = '';
 };
 
-var updateDocument = function(url) {
+function updateDocument(url) {
   script += "window.document.__defineGetter__('referrer', function() {return '" + url + "';});\n";
 };
 
-var updateHistory = function() {
+function updateHistory() {
   script += "History.prototype.__defineGetter__('length', function() {return 0;});\n";
 };
 
-var updateScreen = function() {
+function updateScreen() {
   defineGetter('screen', 'height', display.height);
   defineGetter('screen', 'width', display.width);
   defineGetter('screen', 'colorDepth', display.depth);
@@ -52,7 +52,7 @@ var updateScreen = function() {
   defineGetter('screen', 'availWidth', display.width);
 };
 
-var updateWindow = function() {
+function updateWindow() {
   defineGetter('window', 'outerHeight', display.height);
   defineGetter('window', 'outerWidth', display.width);
   defineGetter('window', 'innerHeight', display.height);
@@ -63,34 +63,34 @@ var updateWindow = function() {
   defineGetter('window', 'scrollY', 0);
 };
 
-var updateNavigator = function(userAgent) {
-  defineGetter('window.navigator', 'userAgent', userAgent);
-  defineGetter('window.navigator', 'appName', '');
-  defineGetter('window.navigator', 'appCodeName', '');
-  defineGetter('window.navigator', 'appVersion', '');
-  defineGetter('window.navigator', 'languages', []);
-  defineGetter('window.navigator', 'mimeTypes', []);
-  defineGetter('window.navigator', 'platform', 'Win32');
-  defineGetter('window.navigator', 'plugins', []);
-  defineGetter('window.navigator', 'product', '');
-  defineGetter('window.navigator', 'productSub', '');
-  defineGetter('window.navigator', 'vendor', '');
+function updateNavigator(userAgent) {
+  defineGetter('window.navigator', 'userAgent', `'${userAgent}'`);
+  defineGetter('window.navigator', 'appName', "''");
+  defineGetter('window.navigator', 'appCodeName', "''");
+  defineGetter('window.navigator', 'appVersion', "''");
+  defineGetter('window.navigator', 'languages', '[]');
+  defineGetter('window.navigator', 'mimeTypes', '[]');
+  defineGetter('window.navigator', 'platform', "'Win32'");
+  defineGetter('window.navigator', 'plugins', '[]');
+  defineGetter('window.navigator', 'product', "''");
+  defineGetter('window.navigator', 'productSub', "''");
+  defineGetter('window.navigator', 'vendor', "''");
 };
 
-var defineGetter = function(object, name, returnValue) {
-  script += object + ".__defineGetter__('" + name + "', function() {return '" + returnValue + "';});\n";
+function defineGetter(object, name, returnValue) {
+  script += `Object.defineProperty(${object}, '${name}', { get: function() { return ${returnValue}; } });`
 };
 
-var updateCanvas = function() {
-  script += "HTMLCanvasElement.prototype.toDataURL = function() {return '';};\n";
+function updateCanvas() {
+  script += "HTMLCanvasElement.prototype.toDataURL = function() {return '';};";
 };
 
-var updateStyleDeclaration = function() {
-  script += "CSSStyleDeclaration.prototype.__defineSetter__('fontFamily', function() {});\n";
+function updateStyleDeclaration() {
+  script += `Object.defineProperty(CSSStyleDeclaration.prototype, 'fontFamily', { set: function() {} });`
 };
 
-var updateTimezone = function(url) {
-  script += "Date.prototype.getTimezoneOffset = function() {return 0;};\n";
+function updateTimezone() {
+  script += "Date.prototype.getTimezoneOffset = function() {return 0;};";
 };
 
 if (typeof module !== 'undefined') {

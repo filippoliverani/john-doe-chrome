@@ -1,6 +1,6 @@
-﻿var toBeRemoved = /([\?\&]utm_(([_a-z0-9=]+))=[^&#]+)/ig;
+﻿const toBeRemoved = /([\?\&]utm_(([_a-z0-9=]+))=[^&#]+)/ig;
 
-var updateUrl = function(url) {
+function updateUrl(url) {
   var queryStringIndex = url.indexOf('?');
   if (queryStringIndex < 0) return url;
 

@@ -1,6 +1,6 @@
 ﻿var settings = {};
 
-var load = function() {
+function load() {
   chrome.storage.sync.get('settings', function(storage) {
     settings = storage.settings || {};
 
@@ -16,7 +16,7 @@ var load = function() {
   });
 };
 
-var clearBrowsingData = function() {
+function clearBrowsingData() {
   chrome.browsingData.remove(
     {since: 0},
     {
@@ -27,14 +27,14 @@ var clearBrowsingData = function() {
       "formData": true,
       "history": true,
       "indexedDB": true,
-      "localStorage": true,
+      "localStorage": false,
       "pluginData": true,
       "webSQL": true
     }
   );
 };
 
-var enforcePrivacy = function() {
+function enforcePrivacy() {
   chrome.privacy.network.networkPredictionEnabled = false;
 
   chrome.privacy.services.alternateErrorPagesEnabled = false;
@@ -51,12 +51,12 @@ var enforcePrivacy = function() {
   chrome.privacy.websites.hyperlinkAuditingEnabled = false;
 };
 
-var setEnabled = function(event) {
+function setEnabled(event) {
   settings.enabled = this.checked;
   saveSettings();
 };
 
-var saveSettings = function() {
+function saveSettings() {
   chrome.storage.sync.set({'settings': settings});
   chrome.extension.sendMessage({settingsUpdated: true});
 };

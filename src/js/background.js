@@ -1,21 +1,21 @@
-﻿var settings = {};
-var chromeVersion = navigator.userAgent.match(/Chrom(e|ium)\/([0-9.]+)/)[2]
+﻿const chromeVersion = navigator.userAgent.match(/Chrom(e|ium)\/([0-9.]+)/)[2]
+var settings = {};
 var userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/' + chromeVersion + ' Safari/537.36';
 
-var loadSettings = function() {
+function loadSettings() {
   chrome.storage.sync.get('settings', function(storage) {
     settings = storage.settings;
   });
 };
 
-var beforeSendHeaders = function(details) {
+function beforeSendHeaders(details) {
   if (!settings || !settings.enabled) return;
 
   var updatedHeaders = updateHeaders(details.requestHeaders, details.url, userAgent);
   return {requestHeaders: updatedHeaders};
 };
 
-var beforeRequest = function(details) {
+function beforeRequest(details) {
   if (!settings || !settings.enabled) return;
   var url = details.url;
 
