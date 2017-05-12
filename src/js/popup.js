@@ -4,7 +4,7 @@ function load() {
   chrome.storage.sync.get('settings', function(storage) {
     settings = storage.settings || {};
 
-    var enable = document.getElementById('enable');
+    var enable = document.getElementById('enabled');
     enabled.checked = settings.enabled;
     enabled.addEventListener('click', setEnabled);
 
