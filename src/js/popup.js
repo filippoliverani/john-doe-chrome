@@ -4,9 +4,9 @@ function load() {
   chrome.storage.sync.get('settings', function(storage) {
     settings = storage.settings || {};
 
-    var enable = document.getElementById('enabled');
-    enabled.checked = settings.enabled;
-    enabled.addEventListener('click', setEnabled);
+    var toggle = document.getElementById('toggle');
+    if (settings.enabled) toggle.MaterialSwitch.on();
+    toggle.addEventListener('change', setEnabled);
 
     var browsingData = document.getElementById('browsing-data');
     browsingData.addEventListener('click', clearBrowsingData);
@@ -52,7 +52,7 @@ function enforcePrivacy() {
 };
 
 function setEnabled(event) {
-  settings.enabled = this.checked;
+  settings.enabled = event.srcElement.checked;
   saveSettings();
 };
 
