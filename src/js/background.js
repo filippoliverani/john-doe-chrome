@@ -11,7 +11,7 @@ function loadSettings() {
 function beforeSendHeaders(details) {
   if (!settings || !settings.enabled) return;
 
-  var updatedHeaders = updateHeaders(details, userAgent);
+  var updatedHeaders = updateHeaders(details.requestHeaders, details.url, details.frameId, userAgent);
   return {requestHeaders: updatedHeaders};
 };
 

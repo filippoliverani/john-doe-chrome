@@ -1,9 +1,8 @@
-﻿function updateHeaders(details, userAgent) {
-  const headers = details.requestHeaders;
-  const isIFrame = details.frameId !== 0;
+﻿function updateHeaders(headers, url, frameId = 0, userAgent) {
+  const isIFrame = frameId !== 0;
   const updatedHeaders = [];
   for (const header of headers) {
-    updateHeaderValue(header, details.url, isIFrame, userAgent);
+    updateHeaderValue(header, url, isIFrame, userAgent);
     updatedHeaders.push(header);
   }
   return updatedHeaders;
@@ -32,13 +31,11 @@ function updateHeaderValue(header, url, isIFrame, userAgent) {
 }
 
 function isSameOrigin(originUrl, newUrl) {
-  newUrl && newUrl.includes(getHostname(originUrl));
+  return newUrl && newUrl.includes(getHostname(originUrl));
 }
 
 function getHostname(url) {
-  const link = document.createElement('a');
-  link.href = url;
-  return link.hostname;
+  return url.match(/(.+:\/\/)?([^\/]+)/)[0];
 }
 
 if (typeof module !== 'undefined') {
