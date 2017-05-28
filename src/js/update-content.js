@@ -22,7 +22,7 @@ function createScript(userAgent, url) {
   updateScreen();
   updateHistory();
   updateNavigator(userAgent);
-  updateCanvas();
+   updateCanvas();
   updateStyleDeclaration();
   updateTimezone();
 
@@ -59,8 +59,6 @@ function updateWindow() {
   defineGetter('window', 'innerWidth', display.width);
   defineGetter('window', 'screenX', 0);
   defineGetter('window', 'screenY', 0);
-  defineGetter('window', 'scrollX', 0);
-  defineGetter('window', 'scrollY', 0);
 };
 
 function updateNavigator(userAgent) {
