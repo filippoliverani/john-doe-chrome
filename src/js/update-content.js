@@ -3,11 +3,11 @@
   height: 768,
   depth: 24
 };
-var script = '';
+let script = '';
 
 function updateContent(doc, userAgent) {
-  let documentElement = (doc.head || doc.documentElement);
-  let scriptElement = doc.createElement('script');
+  const documentElement = (doc.head || doc.documentElement);
+  const scriptElement = doc.createElement('script');
 
   scriptElement.textContent = createScript(userAgent, doc.URL);
   documentElement.insertBefore(scriptElement, documentElement.firstChild);

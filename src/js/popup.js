@@ -1,38 +1,38 @@
-﻿var settings = {};
+﻿let settings = {};
 
 function load() {
-  chrome.storage.sync.get('settings', function(storage) {
+  chrome.storage.sync.get('settings', function (storage) {
     settings = storage.settings || {};
 
-    var toggle = document.getElementById('toggle');
+    const toggle = document.getElementById('toggle');
     if (settings.enabled) toggle.MaterialSwitch.on();
     toggle.addEventListener('change', setEnabled);
 
-    var browsingData = document.getElementById('browsing-data');
+    const browsingData = document.getElementById('browsing-data');
     browsingData.addEventListener('click', clearBrowsingData);
 
-    var privacy = document.getElementById('privacy');
+    const privacy = document.getElementById('privacy');
     privacy.addEventListener('click', enforcePrivacy);
   });
-};
+}
 
 function clearBrowsingData() {
   chrome.browsingData.remove(
-    {since: 0},
+    { since: 0 },
     {
-      "appcache": true,
-      "cache": true,
-      "downloads": true,
-      "fileSystems": true,
-      "formData": true,
-      "history": true,
-      "indexedDB": true,
-      "localStorage": false,
-      "pluginData": true,
-      "webSQL": true
+      appcache: true,
+      cache: true,
+      downloads: true,
+      fileSystems: true,
+      formData: true,
+      history: true,
+      indexedDB: true,
+      localStorage: false,
+      pluginData: true,
+      webSQL: true
     }
   );
-};
+}
 
 function enforcePrivacy() {
   chrome.privacy.network.networkPredictionEnabled = false;
@@ -49,16 +49,16 @@ function enforcePrivacy() {
 
   chrome.privacy.websites.thirdPartyCookiesAllowed = false;
   chrome.privacy.websites.hyperlinkAuditingEnabled = false;
-};
+}
 
 function setEnabled(event) {
   settings.enabled = event.srcElement.checked;
   saveSettings();
-};
+}
 
 function saveSettings() {
-  chrome.storage.sync.set({'settings': settings});
-  chrome.extension.sendMessage({settingsUpdated: true});
-};
+  chrome.storage.sync.set({ settings: settings });
+  chrome.extension.sendMessage({ settingsUpdated: true });
+}
 
 document.addEventListener('DOMContentLoaded', load);
