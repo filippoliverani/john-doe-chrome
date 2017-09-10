@@ -1,11 +1,15 @@
-﻿function updateHeaders(headers, url, frameId = 0, userAgent) {
-  const isIFrame = frameId !== 0;
-  const updatedHeaders = [];
-  for (const header of headers) {
-    updateHeaderValue(header, url, isIFrame, userAgent);
-    updatedHeaders.push(header);
-  }
-  return updatedHeaders;
+﻿const googleSearchUrl = /http(s)?:\/\/.*google\..+\/search\?/;
+
+function isGoogleSearch(url) {
+  return url.match(googleSearchUrl);
+}
+
+function getHostname(url) {
+  return url.match(/(.+:\/\/)?([^\/]+)/)[0];
+}
+
+function isSameOrigin(originUrl, newUrl) {
+  return newUrl && newUrl.includes(getHostname(originUrl));
 }
 
 function updateHeaderValue(header, url, isIFrame, userAgent) {
@@ -27,16 +31,26 @@ function updateHeaderValue(header, url, isIFrame, userAgent) {
         header.value = getHostname(url);
       }
       break;
+    case 'Cookie':
+      if (isGoogleSearch(url)) {
+        header.value = header.value = '';
+      }
+      break;
   }
 }
 
-function isSameOrigin(originUrl, newUrl) {
-  return newUrl && newUrl.includes(getHostname(originUrl));
+function updateHeaders(headers, url, frameId = 0, userAgent) {
+  const isIFrame = frameId !== 0;
+  const updatedHeaders = [];
+
+  headers.forEach((header) => {
+    updateHeaderValue(header, url, isIFrame, userAgent);
+    updatedHeaders.push(header);
+  });
+
+  return updatedHeaders;
 }
 
-function getHostname(url) {
-  return url.match(/(.+:\/\/)?([^\/]+)/)[0];
-}
 
 if (typeof module !== 'undefined') {
   module.exports = updateHeaders;

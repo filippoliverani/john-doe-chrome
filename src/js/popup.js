@@ -51,14 +51,14 @@ function enforcePrivacy() {
   chrome.privacy.websites.hyperlinkAuditingEnabled = false;
 }
 
-function setEnabled(event) {
-  settings.enabled = event.srcElement.checked;
-  saveSettings();
-}
-
 function saveSettings() {
   chrome.storage.sync.set({ settings: settings });
   chrome.extension.sendMessage({ settingsUpdated: true });
+}
+
+function setEnabled(event) {
+  settings.enabled = event.srcElement.checked;
+  saveSettings();
 }
 
 document.addEventListener('DOMContentLoaded', load);

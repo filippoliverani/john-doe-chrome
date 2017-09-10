@@ -27,7 +27,7 @@ describe('updateHeaders', function () {
       name: 'User-Agent',
       value: 'Privatezilla/1.0'
     };
-    const userAgent = 'Correctzilla/1.0'
+    const userAgent = 'Correctzilla/1.0';
 
     const updatedHeaders = updateHeaders([header], 'unused_url', 0, userAgent);
     expect(updatedHeaders[0].value).to.equal(userAgent);
@@ -42,5 +42,16 @@ describe('updateHeaders', function () {
 
     const updatedHeaders = updateHeaders([header], url);
     expect(updatedHeaders[0].value).to.equal(url);
+  });
+
+  it('removes cookies when url is a google search', function () {
+    const header = {
+      name: 'Cookie',
+      value: 'SID=session_id_cookie_value'
+    };
+    const url = 'https://encrypted.google.com/search?q=test+search';
+
+    const updatedHeaders = updateHeaders([header], url);
+    expect(updatedHeaders[0].value).to.equal('');
   });
 });

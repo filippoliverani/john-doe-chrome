@@ -1,14 +1,14 @@
 {
   "name": "john-doe-chrome",
-  "version": "3.3.2",
+  "version": "4.0.0",
   "description": "A Chrome extension to anonymize some of the data exposed by your browser",
   "repository": "git@github.com:filippo-liverani/john-doe-chrome.git",
   "author": "Filippo Liverani",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "jsdom": "^9.11.0",
-    "mocha": "^3.2.0"
+    "chai": "4.1.2",
+    "jsdom": "9.12.0",
+    "mocha": "3.5.1"
   },
   "scripts": {
     "test": "mocha --reporter spec test/**",

@@ -1,9 +1,9 @@
-﻿const chromeVersion = navigator.userAgent.match(/Chrom(e|ium)\/([0-9.]+)/)[2]
-const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/' + chromeVersion + ' Safari/537.36';
+﻿const chromeVersion = navigator.userAgent.match(/Chrom(e|ium)\/([0-9.]+)/)[2];
+const userAgent = `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeVersion} Safari/537.36`;
 let settings = {};
 
 function loadSettings() {
-  chrome.storage.sync.get('settings', function(storage) {
+  chrome.storage.sync.get('settings', (storage) => {
     settings = storage.settings;
   });
 }
@@ -21,6 +21,7 @@ function beforeRequest(details) {
   const url = details.url;
   const updatedUrl = updateUrl(url);
   if (updatedUrl === url) return {};
+
   return { redirectUrl: updatedUrl };
 }
 
@@ -28,7 +29,7 @@ chrome.storage.sync.set({ userAgent: userAgent });
 
 loadSettings();
 
-chrome.extension.onMessage.addListener(function (request) {
+chrome.extension.onMessage.addListener((request) => {
   if (request.settingsUpdated) loadSettings();
 });
 

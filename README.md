@@ -7,6 +7,7 @@ Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/john-d
 John Doe Chrome improves privacy and reduces fingerprinting effectivness.
 
 - Replaces Http headers with generic ones
+- Removes cookies during google searches
 - Replaces javascript window, navigator and screen attributes with generic ones
 - Removes analytics parameters from urls
 
