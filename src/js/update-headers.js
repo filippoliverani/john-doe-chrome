@@ -1,4 +1,4 @@
-﻿const googleSearchUrl = /http(s)?:\/\/.*google\..+\/search\?/;
+﻿const googleSearchUrl = /http(s)?:\/\/.*google\.[^\/]+\/search\?/;
 
 function isGoogleSearch(url) {
   return url.match(googleSearchUrl);

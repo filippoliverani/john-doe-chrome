@@ -1,6 +1,6 @@
 {
   "name": "john-doe-chrome",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A Chrome extension to anonymize some of the data exposed by your browser",
   "repository": "git@github.com:filippo-liverani/john-doe-chrome.git",
   "author": "Filippo Liverani",

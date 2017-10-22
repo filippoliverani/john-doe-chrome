@@ -1,4 +1,4 @@
-﻿const unwantedQueryString = /([\?\&](utm_|fb_|ref_)([_a-z1-9=]+)|(action_object_map|action_type_map|action_ref_map|feature|fref|hc_location|yclid)=[^&#]+)/ig;
+﻿const unwantedQueryString = /[\?\&]((utm_|fb_|ref_)([^=]+)|(action_object_map|action_type_map|action_ref_map|feature|fref|hc_location|hc_ref|yclid))=[^\&\#]+/ig;
 const unwantedGoogleSearchQueryString = /([\?\&](aqs|sourceid)=[^&#]+)/ig;
 const googleSearch = /http(s)?:\/\/(www\.)?google\..+\/search\?/;
 const googleSearchWithoutRedirect = 'https://encrypted.google.com/search?';
