@@ -1,9 +1,4 @@
-﻿const display = {
-  width: 1366,
-  height: 768,
-  depth: 24
-};
-let script = '';
+﻿let script = '';
 
 function defineGetter(object, name, returnValue) {
   script += `Object.defineProperty(${object}, '${name}', { get: function() { return ${returnValue}; } });`;
@@ -33,26 +28,6 @@ function resetScript() {
   script = '';
 }
 
-function updateScreen() {
-  defineGetter('screen', 'height', display.height);
-  defineGetter('screen', 'width', display.width);
-  defineGetter('screen', 'colorDepth', display.depth);
-  defineGetter('screen', 'pixelDepth', display.depth);
-  defineGetter('screen', 'availLeft', 0);
-  defineGetter('screen', 'availTop', 0);
-  defineGetter('screen', 'availHeight', display.height);
-  defineGetter('screen', 'availWidth', display.width);
-}
-
-function updateWindow() {
-  defineGetter('window', 'outerHeight', display.height);
-  defineGetter('window', 'outerWidth', display.width);
-  defineGetter('window', 'innerHeight', display.height);
-  defineGetter('window', 'innerWidth', display.width);
-  defineGetter('window', 'screenX', 0);
-  defineGetter('window', 'screenY', 0);
-}
-
 function updateNavigator(userAgent) {
   defineGetter('window.navigator', 'userAgent', `'${userAgent}'`);
   defineGetter('window.navigator', 'appName', "''");
@@ -71,8 +46,6 @@ function createScript(userAgent, url) {
   resetScript();
 
   updateDocument(url);
-  updateWindow();
-  updateScreen();
   updateHistory();
   updateNavigator(userAgent);
   updateCanvas();
