@@ -25,6 +25,23 @@ function beforeRequest(details) {
   return { redirectUrl: updatedUrl };
 }
 
+function removeUnusedCookies() {
+  chrome.windows.getAll({ populate: true }, (windows) => {
+    chrome.cookies.getAll({}, (cookies) => {
+      cookiesToRemove(windows, cookies).forEach((cookie) => {
+        chrome.cookies.remove({ url: cookie.url, name: cookie.name });
+      });
+    });
+  });
+}
+
+function tabUpdated() {
+  if (!settings || !settings.enabled) return;
+
+  removeUnusedCookies();
+}
+
+
 chrome.storage.sync.set({ userAgent: userAgent });
 
 loadSettings();
@@ -45,3 +62,6 @@ chrome.webRequest.onBeforeRequest.addListener(
   ['blocking']
 );
 
+chrome.tabs.onUpdated.addListener(tabUpdated);
+
+chrome.tabs.onRemoved.addListener(tabUpdated);

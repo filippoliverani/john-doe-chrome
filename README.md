@@ -8,8 +8,9 @@ John Doe Chrome improves privacy and reduces fingerprinting effectivness.
 
 - Replaces Http headers with generic ones
 - Removes cookies during google searches
-- Replaces javascript window, navigator and screen attributes with generic ones
+- Replaces non-essential javascript APIs attributes with generic ones
 - Removes analytics parameters from urls
+- Deletes unused cookies when closing a tab
 
 ## Development
 Install dependencies

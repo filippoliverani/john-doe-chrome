@@ -1,21 +1,5 @@
 ﻿let settings = {};
 
-function load() {
-  chrome.storage.sync.get('settings', function (storage) {
-    settings = storage.settings || {};
-
-    const toggle = document.getElementById('toggle');
-    if (settings.enabled) toggle.MaterialSwitch.on();
-    toggle.addEventListener('change', setEnabled);
-
-    const browsingData = document.getElementById('browsing-data');
-    browsingData.addEventListener('click', clearBrowsingData);
-
-    const privacy = document.getElementById('privacy');
-    privacy.addEventListener('click', enforcePrivacy);
-  });
-}
-
 function clearBrowsingData() {
   chrome.browsingData.remove(
     { since: 0 },
@@ -59,6 +43,22 @@ function saveSettings() {
 function setEnabled(event) {
   settings.enabled = event.srcElement.checked;
   saveSettings();
+}
+
+function load() {
+  chrome.storage.sync.get('settings', function (storage) {
+    settings = storage.settings || {};
+
+    const toggle = document.getElementById('toggle');
+    if (settings.enabled) toggle.MaterialSwitch.on();
+    toggle.addEventListener('change', setEnabled);
+
+    const browsingData = document.getElementById('browsing-data');
+    browsingData.addEventListener('click', clearBrowsingData);
+
+    const privacy = document.getElementById('privacy');
+    privacy.addEventListener('click', enforcePrivacy);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', load);
