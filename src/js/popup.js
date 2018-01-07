@@ -19,20 +19,20 @@ function clearBrowsingData() {
 }
 
 function enforcePrivacy() {
-  chrome.privacy.network.networkPredictionEnabled = false;
+  chrome.privacy.network.networkPredictionEnabled.set({ value: false });
 
-  chrome.privacy.services.alternateErrorPagesEnabled = false;
-  chrome.privacy.services.autofillEnabled = false;
-  chrome.privacy.services.hotwordSearchEnabled = false;
-  chrome.privacy.services.passwordSavingEnabled = false;
-  chrome.privacy.services.safeBrowsingEnabled = false;
-  chrome.privacy.services.safeBrowsingExtendedReportingEnabled = false;
-  chrome.privacy.services.searchSuggestEnabled = false;
-  chrome.privacy.services.spellingServiceEnabled = false;
-  chrome.privacy.services.translationServiceEnabled = false;
+  chrome.privacy.services.alternateErrorPagesEnabled.set({ value: false });
+  chrome.privacy.services.autofillEnabled.set({ value: false });
+  chrome.privacy.services.hotwordSearchEnabled.set({ value: false });
+  chrome.privacy.services.passwordSavingEnabled.set({ value: false });
+  chrome.privacy.services.safeBrowsingEnabled.set({ value: false });
+  chrome.privacy.services.safeBrowsingExtendedReportingEnabled.set({ value: false });
+  chrome.privacy.services.searchSuggestEnabled.set({ value: false });
+  chrome.privacy.services.spellingServiceEnabled.set({ value: false });
+  chrome.privacy.services.translationServiceEnabled.set({ value: false });
 
-  chrome.privacy.websites.thirdPartyCookiesAllowed = false;
-  chrome.privacy.websites.hyperlinkAuditingEnabled = false;
+  chrome.privacy.websites.thirdPartyCookiesAllowed.set({ value: false });
+  chrome.privacy.websites.hyperlinkAuditingEnabled.set({ value: false });
 }
 
 function saveSettings() {

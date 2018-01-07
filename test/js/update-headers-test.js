@@ -33,15 +33,15 @@ describe('updateHeaders', function () {
     expect(updatedHeaders[0].value).to.equal(userAgent);
   });
 
-  it('replaces Referer header value', function () {
+  it('replaces Referer header value when domain changes', function () {
     const header = {
       name: 'Referer',
       value: 'http://private.url'
     };
-    const url = 'http://another.url';
+    const destinationUrl = 'http://another.url';
 
-    const updatedHeaders = updateHeaders([header], url);
-    expect(updatedHeaders[0].value).to.equal(url);
+    const updatedHeaders = updateHeaders([header], destinationUrl);
+    expect(updatedHeaders[0].value).to.equal(destinationUrl);
   });
 
   it('removes cookies when url is a google search', function () {
