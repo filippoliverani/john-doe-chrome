@@ -42,7 +42,7 @@ function tabUpdated() {
 }
 
 
-chrome.storage.sync.set({ userAgent: userAgent });
+chrome.storage.sync.set({ userAgent });
 
 loadSettings();
 

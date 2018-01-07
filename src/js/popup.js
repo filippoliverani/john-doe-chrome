@@ -1,4 +1,6 @@
-﻿let settings = {};
+﻿const enabledIconPath = '../images/small.png';
+const disabledIconPath = '../images/small-disabled.png';
+let settings = {};
 
 function clearBrowsingData() {
   chrome.browsingData.remove(
@@ -36,13 +38,16 @@ function enforcePrivacy() {
 }
 
 function saveSettings() {
-  chrome.storage.sync.set({ settings: settings });
+  chrome.storage.sync.set({ settings });
   chrome.extension.sendMessage({ settingsUpdated: true });
 }
 
 function setEnabled(event) {
   settings.enabled = event.srcElement.checked;
   saveSettings();
+
+  const iconPath = settings.enabled ? enabledIconPath : disabledIconPath;
+  chrome.browserAction.setIcon({ path: iconPath });
 }
 
 function load() {
