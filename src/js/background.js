@@ -35,16 +35,17 @@ function removeUnusedCookies() {
   });
 }
 
-function tabUpdated() {
+function clearData() {
   if (!settings || !settings.enabled) return;
 
   removeUnusedCookies();
 }
 
-
 chrome.storage.sync.set({ userAgent });
 
 loadSettings();
+
+chrome.alarms.create('clearData', { delayInMinutes: 1, periodInMinutes: 1 });
 
 chrome.extension.onMessage.addListener((request) => {
   if (request.settingsUpdated) loadSettings();
@@ -62,6 +63,10 @@ chrome.webRequest.onBeforeRequest.addListener(
   ['blocking']
 );
 
-chrome.tabs.onUpdated.addListener(tabUpdated);
+chrome.tabs.onRemoved.addListener(clearData);
 
-chrome.tabs.onRemoved.addListener(tabUpdated);
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === 'clearData') {
+    clearData();
+  }
+});
