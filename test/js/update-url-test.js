@@ -29,16 +29,10 @@ describe('updateUrl', function () {
   });
 
   describe('update search', function () {
-    it('changes to non redirecting url when url is a google search', function () {
-      const url = 'https://www.google.com/search?q=test+search';
-
-      expect(updateUrl(url)).to.equal('https://encrypted.google.com/search?q=test+search');
-    });
-
     it('removes google search unwanted query string parameters', function () {
       const url = 'https://www.google.com/search?q=test+search&aqs=chrome..42&sourceid=chrome';
 
-      expect(updateUrl(url)).to.equal('https://encrypted.google.com/search?q=test+search');
+      expect(updateUrl(url)).to.equal('https://www.google.com/search?q=test+search');
     });
   });
 });

@@ -1,7 +1,6 @@
 ﻿const unwantedQueryString = /[\?\&]((utm_|fb_|ref_)([^=]+)|(action_object_map|action_type_map|action_ref_map|feature|fref|hc_location|hc_ref|yclid))=[^\&\#]+/ig;
 const unwantedGoogleSearchQueryString = /([\?\&](aqs|sourceid)=[^&#]+)/ig;
 const googleSearch = /http(s)?:\/\/(www\.)?google\..+\/search\?/;
-const googleSearchWithoutRedirect = 'https://encrypted.google.com/search?';
 
 function cleanUrl(url, toRemove) {
   const queryStringIndex = url.indexOf('?');
@@ -19,8 +18,7 @@ function updateGoogleSearch(url) {
   const matches = url.match(googleSearch);
   if (!matches) return url;
 
-  const cleanedUrl = cleanUrl(url, unwantedGoogleSearchQueryString);
-  return cleanedUrl.replace(matches[0], googleSearchWithoutRedirect);
+  return cleanUrl(url, unwantedGoogleSearchQueryString);
 }
 
 function updateUrl(url) {
