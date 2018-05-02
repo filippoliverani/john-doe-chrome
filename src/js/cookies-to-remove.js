@@ -8,14 +8,12 @@
 }
 
 function cookieInUse(domain, urls) {
-  return urls.some(url => url.includes(domain));
+  const host = domain.replace(/^\./, '');
+  return urls.some(url => url.includes(host));
 }
 
 function urlFrom(cookie) {
-  let prefix = cookie.secure ? 'https://' : 'http://';
-  if (cookie.domain.charAt(0) === '.') {
-    prefix += 'www';
-  }
+  const prefix = cookie.secure ? 'https://' : 'http://';
 
   return prefix + cookie.domain + cookie.path;
 }

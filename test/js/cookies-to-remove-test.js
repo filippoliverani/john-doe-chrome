@@ -24,4 +24,18 @@ describe('cookiesToRemove', function () {
     const expectedCookiesToRemove = [{ url: 'http://another.com/test', name: 'another' }];
     expect(cookiesToRemove(windows, cookies)).to.eql(expectedCookiesToRemove);
   });
+
+  it('returns cookies to remove checking naked domains', function () {
+    const tabs = [{ url: 'https://first.com' }];
+    const windows = [{ tabs: tabs }];
+    const cookies = [
+      {
+        domain: '.first.com',
+        path: '/test',
+        name: 'first',
+      }
+    ];
+
+    expect(cookiesToRemove(windows, cookies)).to.be.empty
+  });
 });
